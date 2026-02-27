@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { User } from "../../types/user"; // Import the correct UserDetails type
+import type { UserDetails } from "../../types/user"; // Import the correct UserDetails type
 
 interface ProfileState {
   isEditing: boolean;
@@ -10,7 +10,6 @@ interface ProfileState {
   lastUpdated: string | null;
   lastVerified: string | null;
   hasProfile: boolean;
-  profileType: "user" | "doctor" | null;
   profileCreated: boolean;
   successMessage: string | null;
 }
@@ -23,7 +22,6 @@ const initialState: ProfileState = {
   lastUpdated: null,
   lastVerified: null,
   hasProfile: false,
-  profileType: null,
   profileCreated: false,
   successMessage: null,
 };
@@ -41,7 +39,7 @@ export const profileSlice = createSlice({
     updateProfileSuccess: (
       state,
       action: PayloadAction<{
-        userData: Partial<User>;
+        userData: Partial<UserDetails>;
         isNewProfile?: boolean;
         profileType?: "user" | "doctor";
       }>
@@ -56,7 +54,6 @@ export const profileSlice = createSlice({
       if (isNewProfile) {
         state.profileCreated = true;
         state.hasProfile = true;
-        state.profileType = profileType || null;
         state.successMessage = "Profile created successfully!";
       } else {
         state.successMessage = "Profile updated successfully!";

@@ -1,10 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"; // Use type-only import
-import type { User } from "../../types/user";
+import type { UserDetails } from "../../types/user";
 // Import the correct User type
 
 interface AuthState {
   isAuthenticated: boolean;
-  user: User | null;
+  user: UserDetails | null;
   token: string | null; // Add token field
   uitype: string | null;
   loading: boolean;
@@ -49,7 +49,7 @@ export const authSlice = createSlice({
       state.error = null;
     },
     // Update payload type to use the imported User
-    loginSuccess: (state, action: PayloadAction<User & { token: string }>) => {
+    loginSuccess: (state, action: PayloadAction<UserDetails & { token: string }>) => {
       // Payload is User data + token
 
       const { token, ...userData } = action.payload; // Separate token from user data
@@ -65,7 +65,6 @@ export const authSlice = createSlice({
         JSON.stringify({
           _id: action.payload._id,
           email: action.payload.email,
-          role: action.payload.role,
         })
       );
     },
