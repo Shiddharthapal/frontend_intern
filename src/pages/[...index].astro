@@ -2,15 +2,6 @@
 import App from "../components/App";
 import Layout from "../layouts/Layout.astro";
 
-export const prerender = true;
-
-export function getStaticPaths() {
-  return [
-    { params: { index: undefined } }, // Home page
-  ];
-}
-
-const { index} = Astro.params;
 ---
 
 <Layout>

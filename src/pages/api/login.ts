@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import connect from "@/lib/connection";
-import User from "@/model/User";
+import UserDetails from "@/model/User";
 import jwt from "jsonwebtoken";
 import type { Token } from "@/types/token";
 
@@ -17,7 +17,7 @@ export const POST: APIRoute = async ({ request }) => {
     await connect();
 
 
-    const users = await User.findOne({
+    const users = await UserDetails.findOne({
       email: email,
     });
     //console.log("🧞‍♂️users --->", users);

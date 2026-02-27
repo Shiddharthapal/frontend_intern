@@ -158,7 +158,7 @@ export default function Login() {
                 </div>
                 <div className="mt-0">
                   {error && <p className="text-sm text-red-500">{error}</p>} 
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full bg-[#2A9D6E]" disabled={loading}>
                     {" "}
                     {loading
                       ? "Loading..."
@@ -170,7 +170,7 @@ export default function Login() {
                     to="/register"
                     className="text-primary hover:underline "
                   >
-                    Don't have an account? Register
+                    Don't have an account? Create account
                   </Link>{" "}
                 </div>{" "}
               </form>

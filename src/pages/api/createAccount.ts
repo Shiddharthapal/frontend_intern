@@ -1,7 +1,8 @@
 import type { APIRoute } from "astro";
 import connect from "@/lib/connection";
-import User from "@/model/User";
+import UserDetails from "@/model/User";
 import jwt from "jsonwebtoken";
+
 
 export const POST: APIRoute = async ({ request }) => {
   const headers = {
@@ -9,14 +10,14 @@ export const POST: APIRoute = async ({ request }) => {
   };
   try {
     const body = await request.json();
-    // console.log("body ==> ", body);
+    console.log("body ==> ", body);
 
     const { email, password } = body;
     // Connect to database
     await connect();
 
     let token = null;
-    const user = await User.findOne({
+    const user = await UserDetails.findOne({
       email: email,
     });
     if (user) {
@@ -31,7 +32,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
     // Create new user
-    const users = new User({
+    const users = new UserDetails({
       email: email,
       password,
     });

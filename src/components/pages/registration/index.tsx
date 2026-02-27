@@ -25,7 +25,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [registrationType, setRegistrationType] = useState<"user" | "doctor">(
-    "user"
+    "user",
   );
 
   const {
@@ -49,12 +49,13 @@ export default function Register() {
   }
 
   const onSubmit = async (data: RegisterFormData) => {
+    console.log("data ==> ", data);
     try {
       setLoading(true);
       setError(null);
       dispatch(loginStart());
 
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/createAccount", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +77,7 @@ export default function Register() {
           _id: result._id,
           email: data.email,
           token: result.token,
-        })
+        }),
       );
 
       // Redirect to user page after successful registration
@@ -93,7 +94,7 @@ export default function Register() {
       <Card className="w-[450px]">
         <CardHeader>
           <CardTitle className="text-2xl text-center">
-            Register 
+            Create an account
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -104,17 +105,29 @@ export default function Register() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="medicare+@aiuser.com"
-                  className="border border-[hsl(201,72%,38%)] shadow-md focus-visible:ring-0"
+                  placeholder="shiddhartpal01355@gmail.com"
+                  className="border border-gray-700  shadow-md focus-visible:ring-0"
                   {...register("email", {
                     required: "Email is required",
-                    pattern:
-                      registrationType === "user"
-                        ? {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: "Invalid email address",
-                          }
-                        : undefined,
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                />
+              </>
+            </div>
+            <div className="space-y-2">
+              <>
+                <Label htmlFor="name">Full name</Label>
+                <Input
+                  id="name"
+                  type="name"
+                  placeholder="Shiddhartha Pal"
+                  className="border border-gray-700  shadow-md focus-visible:ring-0"
+                  {...register("name", {
+                    required: "Name is required",
+                
                   })}
                 />
               </>
@@ -126,7 +139,7 @@ export default function Register() {
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  className="border border-[hsl(201,72%,38%)] shadow-md focus-visible:ring-0"
+                  className="border border-gray-700  shadow-md focus-visible:ring-0"
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -161,7 +174,7 @@ export default function Register() {
                 <Input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  className="border border-[hsl(201,72%,38%)] shadow-md focus-visible:ring-0"
+                  className="border border-gray-700 shadow-md focus-visible:ring-0"
                   {...register("confirmPassword", {
                     required: "Please confirm your password",
                     validate: (value) =>
@@ -192,10 +205,10 @@ export default function Register() {
 
             <Button
               type="submit"
-              className="w-full bg-[hsl(201,51%,50%)]"
+              className="w-full bg-[#2A9D6E]"
               disabled={loading}
             >
-              {loading ? "Loading..." : "Register"}
+              {loading ? "Loading..." : "Create account"}
             </Button>
 
             <div className="text-center text-sm">

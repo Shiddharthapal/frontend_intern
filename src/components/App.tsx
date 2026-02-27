@@ -6,6 +6,7 @@ import Layout from "../layouts/Layout";
 import Home from "./pages/home";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./pages/login";
+import Register from "./pages/registration";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route
                 path="/"
                 element={
