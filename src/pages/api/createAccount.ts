@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
     console.log("body ==> ", body);
 
-    const { email, password } = body;
+    const { email, name, password } = body;
     // Connect to database
     await connect();
 
@@ -34,9 +34,11 @@ export const POST: APIRoute = async ({ request }) => {
     // Create new user
     const users = new UserDetails({
       email: email,
+      name: name,
       password,
     });
     users.email = email;
+    users.name = name;
     users.password = password;
 
     await users.save();

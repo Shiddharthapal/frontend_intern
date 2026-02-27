@@ -47,7 +47,7 @@ export default function CreateAccount() {
   }
 
   const onSubmit = async (data: RegisterFormData) => {
-    // console.log("data ==> ", data);
+    console.log("data ==> ", data);
     try {
       setLoading(true);
       setError(null);
@@ -62,7 +62,7 @@ export default function CreateAccount() {
           email: data.email, // Using the same field name for simplicity
           name: data.name,
           password: data.password,
-          registrationNo: null,
+        
         }),
       });
 
