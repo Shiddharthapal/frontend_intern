@@ -3,7 +3,10 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../redux/store";
 import Layout from "../layouts/Layout";
-import Dashboard from "./pages/dashboard";
+import Home from "./pages/home";
+import ProtectedRoute from "./ProtectedRoute";
+import Login from "./pages/login";
+import Register from "./pages/registration";
 
 export default function App() {
   return (
@@ -12,7 +15,16 @@ export default function App() {
         <Router>
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
           </Routes>
         </Router>
