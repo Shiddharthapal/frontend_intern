@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
       "Please provide a valid email",
     ],
   },
+  name: {
+    type: String,
+    required: [true, "Please provide a name"],
+  },
   password: {
     type: String,
     required: [true, "Password is required"],
@@ -24,7 +28,7 @@ const userSchema = new mongoose.Schema({
       const bdTime = new Date(
         now.toLocaleString("en-US", {
           timeZone: "Asia/Dhaka",
-        })
+        }),
       );
       return bdTime;
     },
@@ -46,9 +50,10 @@ userSchema.pre("save", async function (next) {
 
 // Method to compare password
 userSchema.methods.comparePassword = async function (
-  candidatePassword: string
+  candidatePassword: string,
 ) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-export default mongoose.models.UserDetails || mongoose.model("UserDetails", userSchema);
+export default mongoose.models.UserDetails ||
+  mongoose.model("UserDetails", userSchema);

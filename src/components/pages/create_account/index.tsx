@@ -13,20 +13,18 @@ import { loginStart, loginSuccess } from "@/redux/slices/authSlice";
 
 interface RegisterFormData {
   email: string;
+  name: string;
   password: string;
   confirmPassword: string;
 }
 
-export default function Register() {
+export default function CreateAccount() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [registrationType, setRegistrationType] = useState<"user" | "doctor">(
-    "user",
-  );
 
   const {
     register,
@@ -62,8 +60,9 @@ export default function Register() {
         },
         body: JSON.stringify({
           email: data.email, // Using the same field name for simplicity
+          name: data.name,
           password: data.password,
-          registrationNo: null,
+        
         }),
       });
 
@@ -127,7 +126,6 @@ export default function Register() {
                   className="border border-gray-700  shadow-md focus-visible:ring-0"
                   {...register("name", {
                     required: "Name is required",
-                
                   })}
                 />
               </>
