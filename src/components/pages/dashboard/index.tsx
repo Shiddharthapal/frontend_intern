@@ -6,8 +6,11 @@ import {
   projectList,
   weekBars,
 } from "./data";
+import { MoveUpIcon, MoveUpRight } from "lucide-react";
+import { useState } from "react";
 
 export default function Dashboard() {
+  const [hovered, setHovered] = useState(2);
   return (
     <div className="dashboard-page">
       <div className="dashboard-shell">
@@ -36,7 +39,12 @@ export default function Dashboard() {
                 >
                   <div className="overview-top">
                     <h3>{card.title}</h3>
-                    <span className="expand">^</span>
+                    <span
+                      className="w-[30px] h-[30px] rounded-full grid place-items-center 
+                    border border-gray-700 text-[14px] bg-gray-100 text-gray-700"
+                    >
+                      <MoveUpRight />
+                    </span>
                   </div>
                   <strong>{card.value}</strong>
                   <p>{card.note}</p>
@@ -50,19 +58,109 @@ export default function Dashboard() {
                   <h2>Project Analytics</h2>
                 </div>
                 <div className="bars">
-                  {weekBars.map((bar, index) => (
-                    <div key={`${bar.day}-${index}`} className="bar-col">
+                  {weekBars.map((bar, i) => {
+                    const isHovered = hovered === i;
+                    const totalHeight = 110;
+
+                    return (
                       <div
-                        className={`bar ${bar.stripe ? "striped" : ""}`}
-                        style={{ height: bar.fill ? `${bar.fill}%` : "84%" }}
+                        key={i}
+                        onMouseEnter={() => setHovered(i)}
+                        onMouseLeave={() => setHovered(2)}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          gap: "6px",
+                          cursor: "pointer",
+                        }}
                       >
-                        {bar.topText && (
-                          <span className="bar-label">{bar.topText}</span>
-                        )}
+                        {/* Tooltip */}
+                        <div
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            color: bar.stripe ? "transparent" : "#fff",
+                            background: bar.stripe
+                              ? "transparent"
+                              : isHovered
+                                ? "#222"
+                                : "transparent",
+                            borderRadius: "6px",
+                            padding: "2px 6px",
+                            marginBottom: "2px",
+                            minHeight: "18px",
+                            transition: "background 0.2s",
+                          }}
+                        >
+                          {isHovered && !bar.stripe ? `${bar.fill}%` : ""}
+                        </div>
+
+                        {/* Bar container (full height = 100) */}
+                        <div
+                          style={{
+                            width: "34px",
+                            height: `${totalHeight}px`,
+                            borderRadius: "20px",
+                            overflow: "hidden",
+                            position: "relative",
+                            background: bar.stripe ? "transparent" : "#e8f5ee",
+                          }}
+                        >
+                          {bar.stripe ? (
+                            /* Striped empty bar */
+                            <div
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                borderRadius: "20px",
+                                border: "2px solid #d0e8d8",
+                                background: `repeating-linear-gradient(
+                      -45deg,
+                      #d8ead0 0px,
+                      #d8ead0 3px,
+                      transparent 3px,
+                      transparent 8px
+                    )`,
+                              }}
+                            />
+                          ) : (
+                            /* Filled bar from bottom */
+                            <>
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  height: `${bar.fill}%`,
+                                  background: isHovered
+                                    ? bar.color === "#6dcfa0"
+                                      ? "#5abf90"
+                                      : bar.color
+                                    : bar.color,
+                                  borderRadius: "20px",
+                                  transition: "height 0.3s ease",
+                                }}
+                              />
+                            </>
+                          )}
+                        </div>
+
+                        {/* Day label */}
+                        <span
+                          style={{
+                            fontSize: "12px",
+                            color: isHovered && !bar.stripe ? "#222" : "#aaa",
+                            fontWeight: isHovered ? 600 : 400,
+                            transition: "color 0.2s",
+                          }}
+                        >
+                          {bar.day}
+                        </span>
                       </div>
-                      <span>{bar.day}</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </article>
 
@@ -72,7 +170,7 @@ export default function Dashboard() {
                 <p>{meetingReminder.time}</p>
                 <Link
                   to="/calendar"
-                  className="mt-4 w-full inline-flex justify-center rounded-full border-0 bg-gradient-to-r from-[#0f6c44] to-[#1a8f5f] px-4 py-3 text-[20px] text-white"
+                  className="mt-4 w-full inline-flex justify-center rounded-full border-0 bg-gradient-to-r from-[#0f6c44] to-[#1a8f5f] px-2 py-1 text-[20px] text-white"
                 >
                   Open Calendar
                 </Link>

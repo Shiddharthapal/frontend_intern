@@ -22,6 +22,8 @@ export interface WeekBar {
   day: string;
   fill: number;
   stripe: boolean;
+  color?: string;
+  active?: boolean;
   topText?: string;
 }
 
@@ -108,11 +110,11 @@ export const collaborators: Collaborator[] = [
   },
 ];
 
-export const weekBars: WeekBar[] = [
-  { day: "S", fill: 0, stripe: true },
-  { day: "M", fill: 78, stripe: false },
-  { day: "T", fill: 65, stripe: false, topText: "74%" },
-  { day: "W", fill: 92, stripe: false },
+export const weekBars: WeekBar[] =[
+  { day: "S", fill: 85, stripe: false, color: "#3a7d5c" },
+  { day: "M", fill: 100, stripe: false, color: "#2d6b4a" },
+  { day: "T", fill: 74, stripe: false, color: "#6dcfa0", topText: "74%", active: true },
+  { day: "W", fill: 100, stripe: false, color: "#1a4d32" },
   { day: "T", fill: 0, stripe: true },
   { day: "F", fill: 0, stripe: true },
   { day: "S", fill: 0, stripe: true },
