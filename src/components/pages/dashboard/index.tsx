@@ -6,7 +6,7 @@ import {
   projectList,
   weekBars,
 } from "./data";
-import { MoveUpIcon, MoveUpRight } from "lucide-react";
+import { MoveUpRight } from "lucide-react";
 import { useState } from "react";
 
 export default function Dashboard() {
@@ -99,7 +99,7 @@ export default function Dashboard() {
                         {/* Bar container (full height = 100) */}
                         <div
                           style={{
-                            width: "34px",
+                            width: "clamp(20px, 5vw, 34px)",
                             height: `${totalHeight}px`,
                             borderRadius: "20px",
                             overflow: "hidden",

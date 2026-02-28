@@ -6,6 +6,9 @@ export default function Layout() {
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/createaccount";
+  const shellSpacing = isAuthPage
+    ? "pt-14"
+    : "pt-14 lg:pl-[220px] pb-[78px] lg:pb-0";
 
   return (
     <div className="min-h-screen bg-[#d9d9d9]">
@@ -15,7 +18,7 @@ export default function Layout() {
 
       {!isAuthPage && <DashboardSidebar />}
 
-      <div className={`min-h-screen pt-14 ${isAuthPage ? "" : "pl-[220px]"}`}>
+      <div className={`min-h-screen ${shellSpacing}`}>
         <Outlet />
       </div>
     </div>

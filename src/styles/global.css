@@ -9,25 +9,30 @@
           box-sizing: border-box;
         }
 
+        html,
+        body {
+          overflow-x: hidden;
+        }
+
         .dashboard-page {
           min-height: 100vh;
           background: #d9d9d9;
           font-family: "Manrope", "Segoe UI", sans-serif;
           color: #152418;
           border-radius: 0px;
-          padding-left: 0;
+          padding: 8px;
         }
 
         .dashboard-shell {
           max-width: 1320px;
           margin: 0 auto;
           background: #f3f4f3;
-          border-radius: 0px;
-          padding: 1px;
+          border-radius: 16px;
+          padding: 8px;
           display: grid;
           grid-template-columns: 1fr;
           gap: 14px;
-          min-height: calc(100vh - 40px);
+          min-height: calc(100vh - 56px);
         }
 
         .sidebar,
@@ -174,6 +179,7 @@
           display: grid;
           gap: 10px;
           background: transparent;
+          min-width: 0;
         }
 
         .topbar {
@@ -309,7 +315,7 @@
 
         .heading-row h1 {
           margin: 0 0 6px;
-          font-size: 46px;
+          font-size: clamp(1.75rem, 3.8vw, 2.875rem);
           line-height: 1;
           letter-spacing: -0.04em;
         }
@@ -317,21 +323,23 @@
         .heading-row p {
           margin: 0;
           color: #869188;
-          font-size: 24px;
+          font-size: clamp(0.95rem, 1.7vw, 1.5rem);
         }
 
         .action-row {
           display: flex;
           gap: 10px;
+          flex-wrap: wrap;
         }
 
         .btn {
           border-radius: 999px;
-          padding: 4px 16px;
+          padding: 10px 16px;
           border: 1px solid #166b46;
-          font-size: 24px;
+          font-size: clamp(0.9rem, 1.2vw, 1.05rem);
           cursor: pointer;
           white-space: nowrap;
+          text-align: center;
         }
 
         .btn.primary {
@@ -369,7 +377,7 @@
         }
 
         .overview-top h3 {
-          font-size: 28px;
+          font-size: clamp(1rem, 1.8vw, 1.75rem);
           margin: 0;
           font-weight: 600;
         }
@@ -391,7 +399,7 @@
         }
 
         .overview-card strong {
-          font-size: 64px;
+          font-size: clamp(2rem, 5vw, 4rem);
           line-height: 1;
           margin-top: 16px;
           display: block;
@@ -401,7 +409,7 @@
         .overview-card p {
           margin: 10px 0 0;
           color: #7b8b80;
-          font-size: 22px;
+          font-size: clamp(0.85rem, 1.4vw, 1.25rem);
         }
 
         .overview-card.primary p {
@@ -430,13 +438,13 @@
 
         h2 {
           margin: 0;
-          font-size: 32px;
+          font-size: clamp(1.1rem, 2vw, 2rem);
           font-weight: 650;
           letter-spacing: -0.03em;
         }
 
         .bars {
-          height: 220px;
+          height: clamp(170px, 24vw, 220px);
           display: grid;
           grid-template-columns: repeat(7, 1fr);
           align-items: end;
@@ -495,6 +503,10 @@
           margin: 0;
           font-size: 14px;
           color: #7a877d;
+        }
+
+        .reminders a {
+          text-decoration: none;
         }
 
         .reminders button {
@@ -691,7 +703,7 @@
         }
 
         .timer {
-          font-size: 54px;
+          font-size: clamp(2rem, 5vw, 3.375rem);
           font-weight: 800;
           letter-spacing: -0.04em;
           margin: 20px 0;
@@ -721,25 +733,6 @@
           color: #fff;
         }
 
-        @media (max-width: 1280px) {
-          .brand-name,
-          .heading-row h1,
-          .btn,
-          .overview-top h3,
-          .overview-card p,
-          h2 {
-            font-size: clamp(1rem, 1.6vw, 2rem);
-          }
-
-          .overview-card strong {
-            font-size: clamp(1.20rem, 1.2vw, 2.2rem);
-          }
-
-          .heading-row p {
-            font-size: clamp(0.90rem, 1.0vw, 1.2rem);
-          }
-        }
-
         @media (max-width: 1120px) {
           .dashboard-shell {
             grid-template-columns: 1fr;
@@ -759,9 +752,24 @@
           }
         }
 
+        @media (max-width: 1024px) {
+          .dashboard-page {
+            padding: 6px;
+          }
+
+          .dashboard-shell {
+            gap: 10px;
+            padding: 6px;
+          }
+
+          .dashboard-main {
+            padding: 4px;
+          }
+        }
+
         @media (max-width: 760px) {
           .dashboard-page {
-            padding: 10px;
+            padding: 6px;
           }
 
           .overview-grid {
@@ -776,14 +784,53 @@
 
           .action-row {
             justify-content: stretch;
+            width: 100%;
           }
 
           .btn {
             width: 100%;
           }
 
+          .panel-head {
+            flex-wrap: wrap;
+          }
+
+          .chip {
+            width: 100%;
+            text-align: center;
+          }
+
+          .collaboration li {
+            align-items: flex-start;
+            flex-wrap: wrap;
+          }
+
+          .status {
+            margin-left: 0;
+          }
+
           .topbar-right {
             justify-content: space-between;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .panel {
+            padding: 12px;
+          }
+
+          .heading-row {
+            gap: 12px;
+            padding: 10px;
+          }
+
+          .bars {
+            gap: 6px;
+            padding: 0;
+          }
+
+          .ring {
+            width: min(78vw, 210px);
           }
         }
 

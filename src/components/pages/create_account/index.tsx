@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { loginStart, loginSuccess } from "@/redux/slices/authSlice";
 
 interface RegisterFormData {
@@ -37,9 +37,9 @@ export default function CreateAccount() {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-background flex items-center justify-center">
+      <div className="fixed inset-0 flex items-center justify-center bg-background">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <div className="inline-block h-12 w-12 animate-spin rounded-full border-b-2 border-primary" />
           <p className="mt-4 text-muted-foreground">Register...</p>
         </div>
       </div>
@@ -47,7 +47,6 @@ export default function CreateAccount() {
   }
 
   const onSubmit = async (data: RegisterFormData) => {
-    console.log("data ==> ", data);
     try {
       setLoading(true);
       setError(null);
@@ -59,10 +58,9 @@ export default function CreateAccount() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: data.email, // Using the same field name for simplicity
+          email: data.email,
           name: data.name,
           password: data.password,
-        
         }),
       });
 
@@ -76,10 +74,9 @@ export default function CreateAccount() {
           _id: result._id,
           email: data.email,
           token: result.token,
-        }),
+        })
       );
 
-      // Redirect to user page after successful registration
       navigate("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
@@ -89,23 +86,23 @@ export default function CreateAccount() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-200">
-      <Card className="w-[450px]">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center">
-            Create an account
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-2">
-              <>
+    <div className="min-h-[calc(100vh-3.5rem)] bg-gray-200 px-4 py-6 sm:px-6 sm:py-8">
+      <div className="mx-auto flex min-h-[calc(100vh-6.5rem)] w-full max-w-md items-center justify-center">
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle className="text-center text-2xl">
+              Create an account
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="shiddhartpal01355@gmail.com"
-                  className="border border-gray-700  shadow-md focus-visible:ring-0"
+                  className="border border-gray-700 shadow-md focus-visible:ring-0"
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -114,109 +111,108 @@ export default function CreateAccount() {
                     },
                   })}
                 />
-              </>
-            </div>
-            <div className="space-y-2">
-              <>
+              </div>
+
+              <div className="space-y-2">
                 <Label htmlFor="name">Full name</Label>
                 <Input
                   id="name"
-                  type="name"
+                  type="text"
                   placeholder="Shiddhartha Pal"
-                  className="border border-gray-700  shadow-md focus-visible:ring-0"
+                  className="border border-gray-700 shadow-md focus-visible:ring-0"
                   {...register("name", {
                     required: "Name is required",
                   })}
                 />
-              </>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  className="border border-gray-700  shadow-md focus-visible:ring-0"
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters",
-                    },
-                  })}
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </Button>
               </div>
-              {errors.password && (
-                <p className="text-sm text-red-500">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <div className="relative">
-                <Input
-                  id="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  className="border border-gray-700 shadow-md focus-visible:ring-0"
-                  {...register("confirmPassword", {
-                    required: "Please confirm your password",
-                    validate: (value) =>
-                      value === password || "Passwords do not match",
-                  })}
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </Button>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    className="border border-gray-700 shadow-md focus-visible:ring-0"
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 6,
+                        message: "Password must be at least 6 characters",
+                      },
+                    })}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                {errors.password && (
+                  <p className="text-sm text-red-500">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
-              {errors.confirmPassword && (
-                <p className="text-sm text-red-500">
-                  {errors.confirmPassword.message}
-                </p>
-              )}
-            </div>
 
-            {error && <p className="text-sm text-red-500">{error}</p>}
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <div className="relative">
+                  <Input
+                    id="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    className="border border-gray-700 shadow-md focus-visible:ring-0"
+                    {...register("confirmPassword", {
+                      required: "Please confirm your password",
+                      validate: (value) =>
+                        value === password || "Passwords do not match",
+                    })}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                {errors.confirmPassword && (
+                  <p className="text-sm text-red-500">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
 
-            <Button
-              type="submit"
-              className="w-full bg-[#2A9D6E]"
-              disabled={loading}
-            >
-              {loading ? "Loading..." : "Create account"}
-            </Button>
+              {error && <p className="text-sm text-red-500">{error}</p>}
 
-            <div className="text-center text-sm">
-              <Link to="/login" className="text-primary hover:underline">
-                Already have an account? Login
-              </Link>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+              <Button
+                type="submit"
+                className="w-full bg-[#2A9D6E]"
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Create account"}
+              </Button>
+
+              <div className="text-center text-sm">
+                <Link to="/login" className="text-primary hover:underline">
+                  Already have an account? Login
+                </Link>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
