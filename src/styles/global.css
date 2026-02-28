@@ -327,7 +327,7 @@
 
         .btn {
           border-radius: 999px;
-          padding: 12px 22px;
+          padding: 4px 16px;
           border: 1px solid #166b46;
           font-size: 24px;
           cursor: pointer;
@@ -732,11 +732,11 @@
           }
 
           .overview-card strong {
-            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-size: clamp(1.20rem, 1.2vw, 2.2rem);
           }
 
           .heading-row p {
-            font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+            font-size: clamp(0.90rem, 1.0vw, 1.2rem);
           }
         }
 
