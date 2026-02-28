@@ -13,6 +13,8 @@ export default function Navbar() {
   const [userData, setUserData] = useState<UserDetails|null>(null);
   const user = useAppSelector((state) => state.auth.user);
   let id = user?._id;
+  console.log("id ==> ", id);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +30,7 @@ export default function Navbar() {
       }
 
       let result = await response.json();
+      console.log("result ==> ", result);
      setUserData(result.userdetails);
     };
     fetchData();

@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ params, request }) => {
     let { id } = params;
     await connect();
     let userdetails = await userDetails.findOne({ _id: id });
-    //console.log("🧞‍♂️userdetails --->", userdetails);
+    console.log("🧞‍♂️userdetails --->", userdetails);
     return new Response(
       JSON.stringify({
         userdetails,

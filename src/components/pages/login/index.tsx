@@ -167,7 +167,7 @@ export default function Login() {
                 </div>
                 <div className="text-center text-sm mt-2">
                   <Link
-                    to="/create-account"
+                    to="/createaccount"
                     className="text-primary hover:underline "
                   >
                     Don't have an account? Create account

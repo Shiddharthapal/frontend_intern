@@ -1,4 +1,16 @@
-import { LayoutDashboard,ClipboardCheck,CalendarSearch,ChartColumnBig,Users, Settings, LifeBuoy,LogOut } from "lucide-react";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/slices/authSlice";
+import {
+  LayoutDashboard,
+  ClipboardCheck,
+  CalendarSearch,
+  ChartColumnBig,
+  Users,
+  Settings,
+  LifeBuoy,
+  LogOut,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const overviewCards = [
   {
@@ -23,16 +35,15 @@ const overviewCards = [
 ];
 
 const sideMainMenu = [
-  { label: "Dashboard", active: true, icon:LayoutDashboard },
-  { label: "Tasks", active: false, badge: "12+", icon:ClipboardCheck },
-  { label: "Calendar", active: false,icon:CalendarSearch },
-  { label: "Analytics", active: false, icon:ChartColumnBig},
-  { label: "Team", active: false,icon:Users },
+  { label: "Dashboard", active: true, icon: LayoutDashboard },
+  { label: "Tasks", active: false, badge: "12+", icon: ClipboardCheck },
+  { label: "Calendar", active: false, icon: CalendarSearch },
+  { label: "Analytics", active: false, icon: ChartColumnBig },
+  { label: "Team", active: false, icon: Users },
 ];
 const sideGeneralMenu = [
   { label: "Settings", icon: Settings },
-  { label: "Help",     icon: LifeBuoy },
-  { label: "Logout",   icon: LogOut },
+  { label: "Help", icon: LifeBuoy },
 ];
 
 const projectList = [
@@ -101,12 +112,18 @@ const weekBars = [
 ];
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <div className="dashboard-page">
       <div className="dashboard-shell">
         <aside className="fixed  left-0 h-screen w-[220px] bg-[#f8f8f8] flex flex-col gap-6 px-4 py-6 z-50 overflow-y-auto">
-         
-
           {/* Main Menu */}
           <div>
             <p className="text-[11px] tracking-[0.1em] text-gray-400 font-medium mb-0 px-1">
@@ -114,38 +131,38 @@ export default function Dashboard() {
             </p>
             <ul className="flex flex-col gap-1 list-none p-0 m-0">
               {sideMainMenu.map((item) => {
-                const Icon=item.icon;
-                return(
-                
-                <li
-                  key={item.label}
-                  className={`relative flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer transition-all
+                const Icon = item.icon;
+                return (
+                  <li
+                    key={item.label}
+                    className={`relative flex items-center gap-3 px-3 py-3 rounded-xl cursor-pointer transition-all
                 ${
                   item.active
                     ? "bg-[#edf2ed] text-[#1a5c36] font-semibold"
                     : "text-[#3a4a3e] hover:bg-gray-100"
                 }`}
-                >
-                  {/* Active bar */}
-                  {item.active && (
-                    <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-9 bg-[#238c5f] rounded-r-3xl" />
-                  )}
+                  >
+                    {/* Active bar */}
+                    {item.active && (
+                      <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-9 bg-[#238c5f] rounded-r-3xl" />
+                    )}
 
-                  {/* Checkbox icon */}
-                  <Icon
-                    className={`w-[18px] h-[18px] rounded-[4px] flex-shrink-0
+                    {/* Checkbox icon */}
+                    <Icon
+                      className={`w-[18px] h-[18px] rounded-[4px] flex-shrink-0
                 ${item.active ? "border-[#1f8a5a]" : "border-[#8a9e90]"}`}
-                  />
+                    />
 
-                  <span className="text-[17px]">{item.label}</span>
+                    <span className="text-[17px]">{item.label}</span>
 
-                  {item.badge && (
-                    <span className="ml-auto bg-[#1e7d56] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">
-                      {item.badge}
-                    </span>
-                  )}
-                </li>
-              )})}
+                    {item.badge && (
+                      <span className="ml-auto bg-[#1e7d56] text-white text-[11px] font-bold px-2 py-0.5 rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -156,20 +173,26 @@ export default function Dashboard() {
             </p>
             <ul className="flex flex-col gap-1 list-none p-0 m-0">
               {sideGeneralMenu.map((item) => {
-                const Icon=item.icon;
-                return(
-                <li
-                  key={item.label}
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-[#68766d] text-[17px] cursor-pointer hover:bg-gray-100"
-                >
-                  <Icon className="w-[18px] h-[18px] rounded-[4px]  flex-shrink-0" />
-                  <span>{item.label}</span>
-                </li>
-              )})}
+                const Icon = item.icon;
+                return (
+                  <li
+                    key={item.label}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-[#68766d] text-[17px] cursor-pointer hover:bg-gray-100"
+                  >
+                    <Icon className="w-[18px] h-[18px] rounded-[4px]  flex-shrink-0 " />
+                    <span>{item.label}</span>
+                  </li>
+                );
+              })}
+              <div
+                className="cursor-pointer text-red-600 flex items-center gap-3 px-3 py-2 rounded-xl text-[17px] hover:bg-red-100"
+                onClick={handleLogout}
+              >
+                <LogOut className="mr-0 h-4 w-4 text-[#68766d] " />
+                Logout
+              </div>
             </ul>
           </div>
-
-          
         </aside>
 
         <main className="  dashboard-main">
