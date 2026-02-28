@@ -17,7 +17,7 @@ export default function Dashboard() {
         <main className="dashboard-main">
           <section className="content">
             <div className="heading-row">
-              <div>
+              <div className="">
                 <h1>Dashboard</h1>
                 <p>Plan, prioritize, and accomplish your tasks with ease.</p>
               </div>

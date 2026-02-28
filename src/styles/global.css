@@ -20,15 +20,15 @@
           font-family: "Manrope", "Segoe UI", sans-serif;
           color: #152418;
           border-radius: 0px;
-          padding: 8px;
+          
         }
 
         .dashboard-shell {
           max-width: 1320px;
           margin: 0 auto;
           background: #f3f4f3;
-          border-radius: 16px;
-          padding: 8px;
+          border-radius: 0px;
+          padding: 3px;
           display: grid;
           grid-template-columns: 1fr;
           gap: 14px;
@@ -304,7 +304,7 @@
         }
 
         .heading-row {
-          padding: 10px 14px;
+          padding: 4px 8px;
           border-radius: 18px;
           background: #f8f8f8;
           display: flex;
@@ -315,7 +315,7 @@
 
         .heading-row h1 {
           margin: 0 0 6px;
-          font-size: clamp(1.75rem, 3.8vw, 2.875rem);
+          font-size: clamp(1.75rem, 1.8vw, 2.875rem);
           line-height: 1;
           letter-spacing: -0.04em;
         }
@@ -323,7 +323,7 @@
         .heading-row p {
           margin: 0;
           color: #869188;
-          font-size: clamp(0.95rem, 1.7vw, 1.5rem);
+          font-size: clamp(0.95rem, 1.2vw, 1.5rem);
         }
 
         .action-row {
@@ -399,7 +399,7 @@
         }
 
         .overview-card strong {
-          font-size: clamp(2rem, 5vw, 4rem);
+          font-size: clamp(1.5rem, 1.5vw, 4rem);
           line-height: 1;
           margin-top: 16px;
           display: block;
